@@ -1,11 +1,10 @@
 menu = """
-
-[d] Depositar
-[s] Sacar
-[e] Extrato
-[q] Sair
-
-=> """
+    [ 1 ] - DEPÓSITO
+    [ 2 ] - SAQUE
+    [ 3 ] - EXTRATO
+    [ 0 ] - SAIR
+    
+    Digite a opção desejada: """
 
 saldo = 0
 limite = 500
@@ -13,22 +12,40 @@ extrato = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
 
+atendimento_banco = " AUTO-ATENDIMENTO HGMS "
+
+print("=" * 34)
+print(atendimento_banco.center(34, "="))
+print("=" * 34)
+
 while True:
 
-    opcao = input(menu)
+    opcao = int(input(menu))
 
-    if opcao == "d":
-        valor = float(input("Informe o valor do depósito: "))
-
+    if opcao == 1:
+        print()
+        print("=" * 34)
+        print(f'{" DEPÓSITO ".center(34, "=")}')
+        print()
+        valor = float(input("Informe o valor do depósito:\n"
+                            "R$ "))
         if valor > 0:
             saldo += valor
-            extrato += f"Depósito: R$ {valor:.2f}\n"
-
+            extrato += f"Depósito de R$ {valor:.2f}\n"
         else:
             print("Operação falhou! O valor informado é inválido.")
 
-    elif opcao == "s":
-        valor = float(input("Informe o valor do saque: "))
+        print()
+        print(f'{" OPERAÇÃO FINALIZADA ".center(34, "=")}')
+        print("=" * 34)
+
+    elif opcao == 2:
+        print()
+        print("=" * 34)
+        print(f'{" SAQUE ".center(34, "=")}')
+        print()
+        valor = float(input("Informe o valor do saque:\n"
+                            "R$ "))
 
         excedeu_saldo = valor > saldo
 
@@ -37,30 +54,48 @@ while True:
         excedeu_saques = numero_saques >= LIMITE_SAQUES
 
         if excedeu_saldo:
-            print("Operação falhou! Você não tem saldo suficiente.")
+            print("\nOperação falhou! Você não tem saldo suficiente.")
 
         elif excedeu_limite:
-            print("Operação falhou! O valor do saque excede o limite.")
+            print("\nOperação falhou! O valor do saque excede o limite.")
 
         elif excedeu_saques:
-            print("Operação falhou! Número máximo de saques excedido.")
+            print("\nOperação falhou! Limite de saque diário excedido.")
 
         elif valor > 0:
             saldo -= valor
-            extrato += f"Saque: R$ {valor:.2f}\n"
+            extrato += f"Saque R$ {valor:.2f}\n"
             numero_saques += 1
 
         else:
             print("Operação falhou! O valor informado é inválido.")
 
-    elif opcao == "e":
-        print("\n================ EXTRATO ================")
-        print("Não foram realizadas movimentações." if not extrato else extrato)
-        print(f"\nSaldo: R$ {saldo:.2f}")
-        print("==========================================")
+        print()
+        print(f'{" OPERAÇÃO FINALIZADA ".center(34, "=")}')
+        print("=" * 34)
 
-    elif opcao == "q":
+    elif opcao == 3:
+        print()
+        print("=" * 34)
+        print(f'{" EXTRATO ".center(34, "=")}')
+        print()
+
+        print("Não foram realizadas movimentações.\n" if not extrato else extrato)
+        print(f'Saldo R$ {saldo:.2f}')
+
+        print()
+        print(f'{" OPERAÇÃO FINALIZADA ".center(34, "=")}')
+        print("=" * 34)
+
+    elif opcao == 0:
+        print()
+        print("=" * 34)
+        print(f'{" ATENDIMENTO FINALIZADO ".center(34, "=")}')
+        print("=" * 34)
+        print()
         break
 
     else:
-        print("Operação inválida, por favor selecione novamente a operação desejada.")
+        print("Opção inválida, selecione novamente a opção desejada.")
+
+print("OBRIGADO POR UTILIZAR NOSSO SISTEMA DE AUTO-ATENDIMENTO!")
